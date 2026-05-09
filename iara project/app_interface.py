@@ -1,114 +1,133 @@
 import customtkinter as ctk
 import logic_helper as logic
+import theme_config as style
 
 
 class IARAGUI(ctk.CTk):
     def __init__(self):
         super().__init__()
-        # Window Configuration
-        self.title("ИАРА - Регистър на риболовните кораби")
-        self.geometry("1100x600")
+        ctk.set_appearance_mode("dark")
+        self.title("ИАРА | Fleet Management")
+        self.geometry("1300x850")  # Slightly wider for bigger boxes
 
-        # Sidebar setup
-        self.sidebar = ctk.CTkFrame(self, width=220, corner_radius=0)
+        # Sidebar
+        self.sidebar = ctk.CTkFrame(self, width=240, corner_radius=0)
         self.sidebar.pack(side="left", fill="y")
 
-        self.label = ctk.CTkLabel(self.sidebar, text="ИАРА ПОРТАЛ", font=("Arial", 20, "bold"))
-        self.label.pack(pady=30, padx=20)
+        self.logo = ctk.CTkLabel(self.sidebar, text="⚓ ИАРА", font=style.FONT_TITLE)
+        self.logo.pack(pady=40)
 
-        # Menu Buttons
-        self.btn_registry = ctk.CTkButton(self.sidebar, text="Регистър Кораби",
+        self.btn_registry = ctk.CTkButton(self.sidebar, text="📦 Флотски Регистър",
+                                          height=45, fg_color=style.COLOR_BRAND,
+                                          text_color=("white", "black"),
                                           command=self.show_vessel_registry)
         self.btn_registry.pack(pady=10, padx=20)
 
-        # Main Content Area (Scrollable to handle long lists)
-        self.display_area = ctk.CTkScrollableFrame(self, corner_radius=15)
-        self.display_area.pack(side="right", fill="both", expand=True, padx=20, pady=20)
+        self.theme_switch = ctk.CTkSwitch(self.sidebar, text="Тъмен Режим", command=self.toggle_theme)
+        self.theme_switch.select()
+        self.theme_switch.pack(side="bottom", pady=20)
 
-        self.show_welcome()
+        # Main Area
+        self.display_area = ctk.CTkScrollableFrame(self, corner_radius=0, fg_color="transparent")
+        self.display_area.pack(side="right", fill="both", expand=True, padx=10, pady=10)
+
+        self.show_vessel_registry()
+
+    def toggle_theme(self):
+        ctk.set_appearance_mode("dark" if self.theme_switch.get() == 1 else "light")
 
     def clear_display(self):
-        """Helper to wipe the screen before drawing a new view."""
         for widget in self.display_area.winfo_children():
             widget.destroy()
 
-    def show_welcome(self):
-        self.clear_display()
-        welcome = ctk.CTkLabel(self.display_area, text="Добре дошли в системата на ИАРА", font=("Arial", 24))
-        welcome.pack(pady=100)
-
     def show_vessel_registry(self):
-        """Displays the table of all registered vessels."""
         self.clear_display()
 
-        header = ctk.CTkLabel(self.display_area, text="Регистър на риболовните кораби", font=("Arial", 22, "bold"))
-        header.pack(pady=(10, 20))
+        # Header
+        top_bar = ctk.CTkFrame(self.display_area, fg_color="transparent")
+        top_bar.pack(fill="x", padx=30, pady=30)
 
-        # Create the table grid container
-        table_frame = ctk.CTkFrame(self.display_area)
-        table_frame.pack(fill="x", padx=10)
+        ctk.CTkLabel(top_bar, text="Регистър на корабите", font=style.FONT_TITLE).pack(side="left")
 
-        # Define Headers
-        headers = ["CFR Номер", "Име на кораб", "Собственик", "Параметри", "Статус"]
-        for i, h_text in enumerate(headers):
-            lbl = ctk.CTkLabel(table_frame, text=h_text, font=("Arial", 12, "bold"), width=140)
-            lbl.grid(row=0, column=i, padx=5, pady=5)
-
-        # Fetch vessels from logic_helper.py
-        vessels = logic.get_vessel_registry()
-
-        # Populate the table rows
-        for index, ship in enumerate(vessels):
-            # We use index+1 because the header is row 0
-            ctk.CTkLabel(table_frame, text=ship["cfr"]).grid(row=index + 1, column=0, pady=2)
-            ctk.CTkLabel(table_frame, text=ship["name"]).grid(row=index + 1, column=1, pady=2)
-            ctk.CTkLabel(table_frame, text=ship["owner"]).grid(row=index + 1, column=2, pady=2)
-            ctk.CTkLabel(table_frame, text=ship["params"]).grid(row=index + 1, column=3, pady=2)
-            ctk.CTkLabel(table_frame, text=ship["status"]).grid(row=index + 1, column=4, pady=2)
-
-        # Navigation to the registration form
-        btn_add = ctk.CTkButton(self.display_area, text="+ Регистрирай нов кораб",
-                                fg_color="green", hover_color="darkgreen",
+        btn_add = ctk.CTkButton(top_bar, text="+ НОВ ЗАПИС",
+                                fg_color=style.COLOR_BRAND,
+                                text_color=("white", "black"),
+                                font=("Segoe UI", 14, "bold"), height=45,
                                 command=self.show_add_vessel_form)
-        btn_add.pack(pady=30)
+        btn_add.pack(side="right")
+
+        # Grid Container
+        grid_container = ctk.CTkFrame(self.display_area, fg_color="transparent")
+        grid_container.pack(fill="both", expand=True, padx=20, pady=10)
+        grid_container.grid_columnconfigure((0, 1), weight=1)  # Ensure columns take equal space
+
+        vessels = logic.get_vessel_registry()
+        for idx, ship in enumerate(vessels):
+            self.create_vessel_card(grid_container, ship, idx)
+
+    def create_vessel_card(self, parent, ship, idx):
+        # FIX: Using the tuple color from style automatically fixes the light/dark bug
+        card = ctk.CTkFrame(parent,
+                            fg_color=style.COLOR_CARD_BG,
+                            border_color=style.COLOR_CARD_BORDER,
+                            border_width=2,
+                            corner_radius=style.CORNER_RADIUS,
+                            height=250)  # Set a minimum height for "Bigger" look
+        card.grid(row=idx // 2, column=idx % 2, padx=20, pady=20, sticky="nsew")
+
+        # Inner Padding Label (to push content in)
+        content_frame = ctk.CTkFrame(card, fg_color="transparent")
+        content_frame.pack(fill="both", expand=True, padx=25, pady=25)
+
+        # Vessel Name
+        ctk.CTkLabel(content_frame, text=ship["name"], font=style.FONT_CARD_TITLE).pack(anchor="w")
+
+        # Separator Line (Visual Detail)
+        line = ctk.CTkFrame(content_frame, height=2, fg_color=style.COLOR_CARD_BORDER)
+        line.pack(fill="x", pady=15)
+
+        # Status Badge (Adaptive)
+        status_color = "#10B981" if ship["status"] == "Активен" else "#F59E0B"
+        badge = ctk.CTkLabel(content_frame, text=f" ● {ship['status'].upper()}",
+                             font=style.FONT_BADGE, text_color=status_color)
+        badge.pack(anchor="w")
+
+        # Details
+        details = (f"🚢 CFR: {ship['cfr']}\n"
+                   f"👤 Собственик: {ship['owner']}\n"
+                   f"🔧 {ship['params']}")
+
+        info_lbl = ctk.CTkLabel(content_frame, text=details, font=style.FONT_INFO,
+                                justify="left", anchor="w")
+        info_lbl.pack(fill="x", pady=(15, 0))
 
     def show_add_vessel_form(self):
-        """Displays the input form for new registrations."""
         self.clear_display()
+        form_container = ctk.CTkFrame(self.display_area, fg_color=style.COLOR_CARD_BG, corner_radius=20)
+        form_container.pack(pady=60)
 
-        ctk.CTkLabel(self.display_area, text="Регистрация на нов кораб", font=("Arial", 22, "bold")).pack(pady=20)
+        ctk.CTkLabel(form_container, text="Нова Регистрация", font=style.FONT_TITLE).pack(pady=30, padx=60)
 
-        # Create Entry fields and store them as self. variables so handle_save can read them
-        self.entry_cfr = self.create_input_field("CFR Номер (МН номер):")
-        self.entry_name = self.create_input_field("Име на кораба:")
-        self.entry_owner = self.create_input_field("Собственик:")
-        self.entry_power = self.create_input_field("Мощност на двигател (HP):")
+        self.entry_cfr = self.create_styled_input(form_container, "CFR Номер")
+        self.entry_name = self.create_styled_input(form_container, "Име на плавателния съд")
+        self.entry_owner = self.create_styled_input(form_container, "Собственик")
+        self.entry_power = self.create_styled_input(form_container, "Мощност (HP)")
 
-        # Save Action
-        btn_save = ctk.CTkButton(self.display_area, text="Запази в Регистъра",
-                                 command=self.handle_save)
-        btn_save.pack(pady=20)
+        ctk.CTkButton(form_container, text="ЗАПАЗИ В БАЗАТА",
+                      fg_color=style.COLOR_BRAND, text_color=("white", "black"),
+                      height=50, font=("Segoe UI", 14, "bold"),
+                      command=self.handle_save).pack(pady=40, padx=60, fill="x")
 
-        # Cancel Action
-        btn_back = ctk.CTkButton(self.display_area, text="Отказ", fg_color="transparent",
-                                 border_width=1, command=self.show_vessel_registry)
-        btn_back.pack()
+        ctk.CTkButton(form_container, text="Назад", fg_color="transparent", border_width=1,
+                      command=self.show_vessel_registry).pack(pady=(0, 30))
 
-    def create_input_field(self, label_text):
-        """Helper to create a label and an entry together."""
-        ctk.CTkLabel(self.display_area, text=label_text).pack(pady=(10, 0))
-        entry = ctk.CTkEntry(self.display_area, width=350)
-        entry.pack(pady=(0, 10))
-        return entry
+    def create_styled_input(self, parent, label):
+        ctk.CTkLabel(parent, text=label, font=style.FONT_INFO).pack(anchor="w", padx=60)
+        e = ctk.CTkEntry(parent, width=450, height=45, corner_radius=8)
+        e.pack(pady=(5, 15), padx=60)
+        return e
 
     def handle_save(self):
-        """Reads input data and sends it to the logic layer."""
-        cfr_val = self.entry_cfr.get()
-        name_val = self.entry_name.get()
-        owner_val = self.entry_owner.get()
-        power_val = self.entry_power.get()
-
-        # Call the logic helper to update the database list
-        if logic.save_vessel(cfr_val, name_val, owner_val, power_val):
-            # Refresh the table view so we see the new ship
+        if logic.save_vessel(self.entry_cfr.get(), self.entry_name.get(),
+                             self.entry_owner.get(), self.entry_power.get()):
             self.show_vessel_registry()
