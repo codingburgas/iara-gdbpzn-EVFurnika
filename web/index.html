@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ИАРА · Информационна система за рибарство и аквакултури</title>
+  <meta name="description" content="Единна информационна система на Изпълнителна агенция по рибарство и аквакултури – регистри, разрешителни, електронен дневник, инспекции и любителски билети." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐟</text></svg>" />
+</head>
+<body>
+  <div id="nav-root"></div>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero photo">
+    <div class="bubbles" id="bubbles"></div>
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow reveal">🐟 Изпълнителна агенция по рибарство и аквакултури</span>
+          <h1 class="reveal d1">Дигитално управление на <span class="text-grad">риболова</span> в България</h1>
+          <p class="lead reveal d2">
+            Единна платформа за регистри на кораби, разрешителни за риболов, електронен
+            дневник на улова, инспекции в реално време и любителски билети — на едно място.
+          </p>
+          <div class="hero-actions reveal d3">
+            <a href="korabi.html" class="btn btn-primary" id="heroCta">Разгледай системата</a>
+            <a href="bileti.html" class="btn btn-light">Купи любителски билет</a>
+          </div>
+          <div class="hero-badges reveal d4">
+            <div class="hero-badge"><b><span data-count="1248">0</span></b><span>Регистрирани кораба</span></div>
+            <div class="hero-badge"><b><span data-count="95300">0</span></b><span>Издадени билета</span></div>
+            <div class="hero-badge"><b><span data-count="8420">0</span></b><span>Инспекции</span></div>
+          </div>
+        </div>
+
+        <div class="reveal d2">
+          <div class="hero-card">
+            <h3>🛰️ Жив мониторинг на улова</h3>
+            <div class="row"><span>⚓ Свети Никола · Калкан</span><span class="pill pill-green" style="color:#bbf7d0;background:rgba(34,197,94,.25)">180 кг</span></div>
+            <div class="row"><span>⚓ Черноморец · Цаца</span><span class="pill pill-green" style="color:#bbf7d0;background:rgba(34,197,94,.25)">950 кг</span></div>
+            <div class="row"><span>⚓ Калиакра · Сафрид</span><span class="pill" style="color:#fde68a;background:rgba(245,158,11,.25)">в транспорт</span></div>
+            <div class="row"><span>🛡️ Инспекция · Варна</span><span class="pill" style="color:#fecdd3;background:rgba(251,113,133,.25)">нарушение</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Animated waves -->
+    <svg class="waves" viewBox="0 24 150 28" preserveAspectRatio="none">
+      <defs>
+        <path id="wv" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+      </defs>
+      <g>
+        <use href="#wv" x="48" y="0" fill="rgba(238,245,255,.25)" />
+        <use href="#wv" x="48" y="3" fill="rgba(238,245,255,.4)" />
+        <use href="#wv" x="48" y="5" fill="rgba(238,245,255,.6)" />
+        <use href="#wv" x="48" y="7" fill="#eef5ff" />
+      </g>
+    </svg>
+  </section>
+
+  <!-- ===================== STATS ===================== -->
+  <section class="section" style="padding-top:48px">
+    <div class="container">
+      <div class="grid grid-4">
+        <div class="card stat reveal"><div class="num"><span data-count="1248">0</span></div><div class="label">Риболовни кораба в регистъра</div></div>
+        <div class="card stat reveal d1"><div class="num"><span data-count="3760">0</span></div><div class="label">Активни разрешителни</div></div>
+        <div class="card stat reveal d2"><div class="num"><span data-count="8420">0</span></div><div class="label">Извършени инспекции</div></div>
+        <div class="card stat reveal d3"><div class="num"><span data-count="7.4" data-suffix=" хил.т">0</span></div><div class="label">Проследен улов за 2026 г.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MODULES ===================== -->
+  <section class="section" id="moduli" style="padding-top:24px">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Модули на системата</span>
+        <h2>Всичко за рибарството в една система</h2>
+        <p class="lead">Шест свързани модула покриват целия процес — от регистрацията на кораба до рибата на щанда в магазина.</p>
+      </div>
+
+      <div class="grid grid-3">
+        <a href="korabi.html" class="card feature-card reveal">
+          <div class="ico" id="i-ship"></div>
+          <h3>Регистър на кораби</h3>
+          <p>Пълни данни за всеки риболовен кораб — идентификация, собственик, капитан и технически параметри.</p>
+          <span class="more">Към регистъра <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+
+        <a href="razreshitelni.html" class="card feature-card reveal d1">
+          <div class="ico" id="i-doc"></div>
+          <h3>Разрешителни за риболов</h3>
+          <p>Годишни разрешителни с описани уреди и зони. Автоматично следене на валидност и отнемане при нарушение.</p>
+          <span class="more">Виж разрешителните <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+
+        <a href="dnevnik.html" class="card feature-card reveal d2">
+          <div class="ico" id="i-book"></div>
+          <h3>Електронен дневник</h3>
+          <p>Корабите над 10 м подават кога, къде и колко риба са уловили. Проследяване на пътя до магазина.</p>
+          <span class="more">Отвори дневника <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+
+        <a href="inspekcii.html" class="card feature-card reveal">
+          <div class="ico" id="i-shield"></div>
+          <h3>Инспекции и контрол</h3>
+          <p>Инспекторите с таблети проверяват кораби, камиони и магазини и издават актове и глоби при нарушение.</p>
+          <span class="more">Модул „Инспектор“ <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+
+        <a href="bileti.html" class="card feature-card reveal d1">
+          <div class="ico" id="i-ticket"></div>
+          <h3>Любителски билети</h3>
+          <p>Купуване на билет онлайн с цена според срока и категорията. Безплатно за хора с увреждания.</p>
+          <span class="more">Купи билет <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+
+        <div class="card feature-card reveal d2">
+          <div class="ico">📱</div>
+          <h3>Мобилно приложение</h3>
+          <p>Любителите регистрират улова си, а инспекторите работят на терен — всичко синхронизирано с централната система.</p>
+          <span class="more" style="color:var(--muted)">Налично за инспектори и любители</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== GALLERY (real photos) ===================== -->
+  <section class="section" id="galeria" style="padding-top:24px">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">От Черно море</span>
+        <h2>Рибарството в България</h2>
+        <p class="lead">Реални снимки от българското Черноморие — пристанища, риболовни кораби, прясна риба и любителски риболов.</p>
+      </div>
+      <div class="gallery">
+        <figure class="gallery-item wide reveal">
+          <img src="img/trawler-harbor.jpg" alt="Риболовен траулер на пристанище" loading="lazy" />
+          <figcaption class="cap">Риболовен траулер на кей<small>Професионален флот в пристанището</small></figcaption>
+        </figure>
+        <figure class="gallery-item reveal d1">
+          <img src="img/coast.jpg" alt="Черноморски залив край Черноморец" loading="lazy" />
+          <figcaption class="cap">Черноморец<small>Черноморски залив</small></figcaption>
+        </figure>
+        <figure class="gallery-item reveal d2">
+          <img src="img/fresh-fish.jpg" alt="Прясна риба" loading="lazy" />
+          <figcaption class="cap">Прясна риба<small>Проследен улов</small></figcaption>
+        </figure>
+        <figure class="gallery-item reveal">
+          <img src="img/sozopol.jpg" alt="Созопол - старият град край морето" loading="lazy" />
+          <figcaption class="cap">Созопол<small>Стар крайморски град</small></figcaption>
+        </figure>
+        <figure class="gallery-item reveal d1">
+          <img src="img/fish-market.jpg" alt="Рибен пазар" loading="lazy" />
+          <figcaption class="cap">Рибен пазар<small>Контрол на произхода</small></figcaption>
+        </figure>
+        <figure class="gallery-item wide reveal d2">
+          <img src="img/anglers-pier.jpg" alt="Любителски риболов на кей" loading="lazy" />
+          <figcaption class="cap">Любителски риболов<small>Билет за всеки любител на морето</small></figcaption>
+        </figure>
+      </div>
+      <p class="center muted mt-3" style="font-size:.8rem">Снимки: Wikimedia Commons (свободни лицензи)</p>
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="section" id="kak-raboti" style="background:linear-gradient(180deg,transparent,var(--bg-2))">
+    <div class="container">
+      <div class="grid grid-2" style="align-items:center;gap:60px">
+        <div class="reveal">
+          <span class="eyebrow">Проследяемост на улова</span>
+          <h2 class="mt-2">От мрежата до щанда — без прекъсване</h2>
+          <p class="lead mt-2">Всяка уловена риба оставя дигитална следа. Във всеки момент инспектор може да провери дали рибата е уловена законно.</p>
+          <div class="grid" style="gap:26px;margin-top:32px">
+            <div class="step"><div class="n">1</div><div><h3>Улов в морето</h3><p>Корабът вписва в електронния дневник кога, къде и с какви уреди е ловил и какво количество е уловил.</p></div></div>
+            <div class="step"><div class="n">2</div><div><h3>Разтоварване</h3><p>При слизане на брега се регистрира разтоварената риба и тя получава уникален идентификатор.</p></div></div>
+            <div class="step"><div class="n">3</div><div><h3>Транспорт и магазин</h3><p>Пътят на рибата през хладилни камиони до магазините се проследява в системата.</p></div></div>
+            <div class="step"><div class="n">4</div><div><h3>Инспекция</h3><p>Инспектор сканира партидата и проверява за миг дали уловът отговаря на издадените разрешителни.</p></div></div>
+          </div>
+        </div>
+
+        <div class="reveal d1">
+          <div class="card" style="padding:0;overflow:hidden">
+            <div style="background:var(--grad-hero);padding:26px;color:#fff">
+              <h3 style="color:#fff">🐟 Партида · #BG-2026-44218</h3>
+              <p style="color:rgba(255,255,255,.8);font-size:.9rem;margin-top:4px">Калкан · 180 кг · уловен 28.06.2026</p>
+            </div>
+            <div style="padding:8px 0">
+              <div class="flex items-center" style="gap:14px;padding:16px 24px;border-bottom:1px solid var(--line)"><span style="font-size:1.4rem">⚓</span><div><b>Кораб „Свети Никола“</b><div class="muted" style="font-size:.85rem">Зона B · 04:30–11:15 · дънна тралова мрежа</div></div><span class="pill pill-green" style="margin-left:auto">ОК</span></div>
+              <div class="flex items-center" style="gap:14px;padding:16px 24px;border-bottom:1px solid var(--line)"><span style="font-size:1.4rem">🏗️</span><div><b>Разтоварване · Бургас</b><div class="muted" style="font-size:.85rem">28.06.2026 · 12:05</div></div><span class="pill pill-green" style="margin-left:auto">ОК</span></div>
+              <div class="flex items-center" style="gap:14px;padding:16px 24px;border-bottom:1px solid var(--line)"><span style="font-size:1.4rem">🚚</span><div><b>Хладилен камион · СВ 4521 ВТ</b><div class="muted" style="font-size:.85rem">Бургас → Варна</div></div><span class="pill pill-green" style="margin-left:auto">ОК</span></div>
+              <div class="flex items-center" style="gap:14px;padding:16px 24px"><span style="font-size:1.4rem">🏪</span><div><b>Магазин · Риба Маркет Варна</b><div class="muted" style="font-size:.85rem">На щанд от 29.06.2026</div></div><span class="pill pill-blue" style="margin-left:auto">наличен</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="section" id="kontakt">
+    <div class="container">
+      <div class="cta-band reveal">
+        <span class="eyebrow" style="background:rgba(255,255,255,.15);color:#fff">Започнете сега</span>
+        <h2 class="mt-2">Любител или професионалист — системата работи за вас</h2>
+        <p>Купете билет за любителски риболов за минути или вижте как изглежда дигиталното управление на риболовния флот.</p>
+        <div class="flex gap-2 wrap" style="justify-content:center">
+          <a href="bileti.html" class="btn btn-light">🎟️ Купи билет</a>
+          <a href="korabi.html" class="btn" style="background:#fff;color:var(--navy)">⚓ Разгледай регистъра</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-root"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/data.js"></script>
+  <script>
+    // module card icons
+    document.getElementById('i-ship').innerHTML = ICON.ship;
+    document.getElementById('i-doc').innerHTML = ICON.doc;
+    document.getElementById('i-book').innerHTML = ICON.book;
+    document.getElementById('i-shield').innerHTML = ICON.shield;
+    document.getElementById('i-ticket').innerHTML = ICON.ticket;
+
+    // arrow icon on the main button
+    document.getElementById('heroCta').innerHTML =
+      'Разгледай системата ' + ICON.arrow;
+
+    // floating bubbles in the hero
+    (function () {
+      const wrap = document.getElementById('bubbles');
+      const n = 14;
+      for (let i = 0; i < n; i++) {
+        const b = document.createElement('span');
+        b.className = 'bubble';
+        const size = 8 + Math.random() * 34;
+        b.style.width = size + 'px';
+        b.style.height = size + 'px';
+        b.style.left = Math.random() * 100 + '%';
+        b.style.animationDuration = (6 + Math.random() * 10) + 's';
+        b.style.animationDelay = (Math.random() * 8) + 's';
+        wrap.appendChild(b);
+      }
+    })();
+  </script>
+</body>
+</html>
