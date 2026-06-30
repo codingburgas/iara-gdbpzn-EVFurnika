@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Вход / Регистрация · ИАРА</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐟</text></svg>" />
+</head>
+<body>
+  <div id="nav-root"></div>
+
+  <section class="auth-wrap">
+    <div class="auth-card reveal in">
+      <div class="auth-side">
+        <span class="logo-big">🐟</span>
+        <h2>Добре дошли в ИАРА</h2>
+        <p>Влезте в акаунта си, за да купувате билети за любителски риболов, да виждате покупките си и да управлявате данни в системата.</p>
+        <ul class="auth-perks">
+          <li>${'check'} Бързо купуване на билети</li>
+          <li>${'check'} Запазена информация за вас</li>
+          <li>${'check'} Личен кабинет с историята</li>
+          <li>${'check'} Режим за редактиране на данни</li>
+        </ul>
+      </div>
+
+      <div class="auth-main">
+        <div class="auth-tabs">
+          <button class="auth-tab active" data-tab="login">Вход</button>
+          <button class="auth-tab" data-tab="register">Регистрация</button>
+        </div>
+
+        <!-- Login -->
+        <form id="loginForm" class="auth-form">
+          <div class="field"><label>Имейл</label><input name="email" type="email" required placeholder="ime@example.bg" /></div>
+          <div class="field"><label>Парола</label><input name="parola" type="password" required placeholder="••••••" /></div>
+          <button class="btn btn-primary btn-block" type="submit">Влез в акаунта</button>
+          <p class="auth-switch">Нямате акаунт? <a href="#" data-goto="register">Регистрирайте се</a></p>
+        </form>
+
+        <!-- Register -->
+        <form id="registerForm" class="auth-form hidden">
+          <div class="field"><label>Име и фамилия</label><input name="ime" required placeholder="Иван Иванов" /></div>
+          <div class="field"><label>Имейл</label><input name="email" type="email" required placeholder="ime@example.bg" /></div>
+          <div class="form-row">
+            <div class="field"><label>Парола</label><input name="parola" type="password" required placeholder="мин. 4 символа" /></div>
+            <div class="field"><label>Повтори паролата</label><input name="parola2" type="password" required placeholder="••••••" /></div>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit">Създай акаунт</button>
+          <p class="auth-switch">Вече имате акаунт? <a href="#" data-goto="login">Влезте</a></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-root"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // icons in the perks list
+    document.querySelectorAll('.auth-perks li').forEach(li => {
+      li.innerHTML = li.innerHTML.replace("${'check'}", ICON.check);
+    });
+
+    // already logged in -> go to the cabinet
+    if (AUTH.current()) location.href = 'profile.html';
+
+    function nextUrl() {
+      const p = new URLSearchParams(location.search).get('next');
+      return p || 'profile.html';
+    }
+
+    // tab switching
+    function showTab(tab) {
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+      document.getElementById('loginForm').classList.toggle('hidden', tab !== 'login');
+      document.getElementById('registerForm').classList.toggle('hidden', tab !== 'register');
+    }
+    document.querySelectorAll('.auth-tab').forEach(t => t.addEventListener('click', () => showTab(t.dataset.tab)));
+    document.querySelectorAll('[data-goto]').forEach(a => a.addEventListener('click', (e) => { e.preventDefault(); showTab(a.dataset.goto); }));
+
+    // login
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const f = readForm(e.target);
+      try {
+        const u = AUTH.login(f.email, f.parola);
+        toast('Здравейте, ' + u.ime.split(' ')[0] + '!', 'Успешен вход в акаунта.');
+        setTimeout(() => location.href = nextUrl(), 700);
+      } catch (err) { toast('Грешка при вход', err.message, 'err'); }
+    });
+
+    // register
+    document.getElementById('registerForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const f = readForm(e.target);
+      if (f.parola !== f.parola2) { toast('Грешка', 'Паролите не съвпадат.', 'err'); return; }
+      try {
+        const u = AUTH.register(f);
+        toast('Акаунтът е създаден! 🎉', 'Добре дошли, ' + u.ime.split(' ')[0] + '.');
+        setTimeout(() => location.href = nextUrl(), 800);
+      } catch (err) { toast('Грешка при регистрация', err.message, 'err'); }
+    });
+  </script>
+</body>
+</html>
