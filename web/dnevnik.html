@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Електронен дневник на улова · ИАРА</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐟</text></svg>" />
+</head>
+<body>
+  <div id="nav-root"></div>
+
+  <section class="page-hero photo ph-dnevnik">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Начало</a> / <span>Електронен дневник</span></div>
+      <div class="flex between items-center wrap" style="gap:20px">
+        <div>
+          <h1>Електронен дневник на улова</h1>
+          <p>Всеки кораб над 10 м вписва кога и къде е ловил, с какви уреди и какво количество риба е уловил. Системата проследява пътя на рибата до магазина.</p>
+        </div>
+        <div class="flex gap-2 wrap">
+          <button class="btn btn-light" id="editToggle">✎ Редактиране</button>
+          <button class="btn btn-light" id="addBtn">+ Нов запис</button>
+        </div>
+      </div>
+      <div class="page-stats">
+        <div class="ps"><b id="st-records">—</b><span>Записа в дневника</span></div>
+        <div class="ps"><b id="st-total">—</b><span>Общо улов (кг)</span></div>
+        <div class="ps"><b id="st-vessels">—</b><span>Активни кораба</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:40px">
+    <div class="container">
+      <div class="grid grid-2" style="gap:40px;align-items:start">
+        <!-- Records column -->
+        <div>
+          <div class="toolbar">
+            <div class="search">
+              <span id="searchIco"></span>
+              <input type="text" id="search" placeholder="Търси по кораб, риба или зона…" />
+            </div>
+          </div>
+          <span class="count" id="count">Зареждане…</span>
+          <div class="records" id="list" style="margin-top:14px"><div class="spinner"></div></div>
+        </div>
+
+        <!-- Traceability -->
+        <div>
+          <div class="card" style="position:sticky;top:96px">
+            <span class="eyebrow">Проследяемост</span>
+            <h3 class="mt-2">Пътят на рибата 🐟</h3>
+            <p class="muted" style="font-size:.92rem">Изберете запис вляво, за да видите целия път на улова — от морето до магазина.</p>
+            <div id="trace" style="margin-top:18px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal: new record -->
+  <div class="modal-overlay" id="addDnevnik">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="dnevnikModalTitle">📒 Нов запис в електронния дневник</h3>
+        <button class="modal-close" onclick="closeModal('addDnevnik')">✕</button>
+      </div>
+      <form id="dnevnikForm">
+        <div class="modal-body">
+          <div class="field"><label>Кораб *</label><select name="korab" id="korabSelect" required></select></div>
+          <div class="form-row">
+            <div class="field"><label>Дата *</label><input name="data" type="date" required /></div>
+            <div class="field"><label>Уреди</label><input name="uredi" placeholder="Дънна тралова мрежа" /></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label>Начало на риболова</label><input name="start" type="time" /></div>
+            <div class="field"><label>Край на риболова</label><input name="kray" type="time" /></div>
+          </div>
+          <div class="field"><label>Зона / координати</label><input name="zona" placeholder="Зона B – кв. 42°20′ / 27°55′" /></div>
+          <div class="form-row">
+            <div class="field"><label>Вид риба *</label><input name="vid_riba" required placeholder="Калкан" /></div>
+            <div class="field"><label>Количество (кг)</label><input name="kolichestvo" type="number" step="1" placeholder="180" /></div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-ghost" onclick="closeModal('addDnevnik')">Отказ</button>
+          <button type="submit" class="btn btn-primary">Запиши</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="footer-root"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/dnevnik.js"></script>
+</body>
+</html>
