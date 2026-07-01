@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Личен кабинет · ИАРА</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐟</text></svg>" />
+</head>
+<body>
+  <div id="nav-root"></div>
+
+  <section class="page-hero photo ph-profile">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Начало</a> / <span>Личен кабинет</span></div>
+      <div class="flex items-center" style="gap:18px">
+        <span class="avatar avatar-lg" id="bigAvatar">—</span>
+        <div>
+          <h1 id="hello">Личен кабинет</h1>
+          <p id="subhello">Управлявайте профила и билетите си.</p>
+        </div>
+      </div>
+      <div class="page-stats">
+        <div class="ps"><b id="st-tickets">0</b><span>Закупени билета</span></div>
+        <div class="ps"><b id="st-active">0</b><span>Активни в момента</span></div>
+        <div class="ps"><b id="st-spent">0 лв.</b><span>Похарчено общо</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:40px">
+    <div class="container">
+      <div class="grid" style="grid-template-columns:.9fr 1.1fr;gap:30px;align-items:start" id="cabGrid">
+
+        <!-- Personal details -->
+        <div class="card">
+          <div class="flex between items-center">
+            <h3>👤 Моите данни</h3>
+            <span class="pill pill-blue">За бъдещи покупки</span>
+          </div>
+          <p class="muted" style="font-size:.9rem;margin-top:4px">Запазете информацията си веднъж — при покупка на билет тя ще се попълва автоматично.</p>
+          <form id="profileForm" style="margin-top:18px">
+            <div class="field"><label>Име и фамилия</label><input name="ime" required /></div>
+            <div class="form-row">
+              <div class="field"><label>Имейл</label><input name="email" type="email" disabled /></div>
+              <div class="field"><label>Телефон</label><input name="telefon" placeholder="08xx xxx xxx" /></div>
+            </div>
+            <div class="form-row">
+              <div class="field"><label>ЕГН / дата на раждане</label><input name="egn" placeholder="напр. 01.01.2005" /></div>
+              <div class="field"><label>Град</label><input name="grad" placeholder="Бургас" /></div>
+            </div>
+            <div class="field"><label>Категория за билет</label>
+              <select name="kategoria">
+                <option value="pod14">Под 14 г.</option>
+                <option value="nad14">Над 14 г.</option>
+                <option value="pensioner">Пенсионер</option>
+                <option value="invalid">Лице с увреждане (с № от ТЕЛК)</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" type="submit" id="saveProfileBtn">Запази данните</button>
+          </form>
+        </div>
+
+        <!-- My tickets -->
+        <div>
+          <div class="flex between items-center" style="margin-bottom:16px">
+            <h3>🎟️ Моите билети</h3>
+            <a href="bileti.html" class="btn btn-ghost btn-sm">+ Купи нов билет</a>
+          </div>
+          <div id="ticketsList" class="records"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-root"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>
