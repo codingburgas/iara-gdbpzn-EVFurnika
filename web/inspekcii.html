@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Инспекции и контрол · ИАРА</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐟</text></svg>" />
+</head>
+<body>
+  <div id="nav-root"></div>
+
+  <section class="page-hero photo ph-inspekcii">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Начало</a> / <span>Инспекции</span></div>
+      <div class="flex between items-center wrap" style="gap:20px">
+        <div>
+          <h1>Инспекции и контрол 🛡️</h1>
+          <p>Инспекторите проверяват кораби, хладилни камиони и магазини с таблет на терен. При нарушение издават акт и налагат глоба.</p>
+        </div>
+        <div class="flex gap-2 wrap">
+          <button class="btn btn-light" id="editToggle">✎ Редактиране</button>
+          <button class="btn btn-light" id="addBtn">+ Нова инспекция</button>
+        </div>
+      </div>
+      <div class="page-stats">
+        <div class="ps"><b id="st-total">—</b><span>Инспекции</span></div>
+        <div class="ps"><b id="st-ok">—</b><span>Без нарушения</span></div>
+        <div class="ps"><b id="st-viol">—</b><span>Нарушения</span></div>
+        <div class="ps"><b id="st-fines">—</b><span>Глоби (лв.)</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:40px">
+    <div class="container">
+      <div class="toolbar">
+        <div class="search">
+          <span id="searchIco"></span>
+          <input type="text" id="search" placeholder="Търси по номер, обект или инспектор…" />
+        </div>
+        <div class="chips" id="chips">
+          <button class="chip active" data-f="all">Всички</button>
+          <button class="chip" data-f="редовно">Редовно</button>
+          <button class="chip" data-f="нарушение">Нарушения</button>
+          <button class="chip" data-f="предупреждение">Предупреждения</button>
+        </div>
+      </div>
+
+      <span class="count" id="count">Зареждане…</span>
+      <div class="records cols-2" id="list" style="margin-top:14px"><div class="spinner"></div></div>
+    </div>
+  </section>
+
+  <!-- Modal: new inspection (simulates the inspector's tablet) -->
+  <div class="modal-overlay" id="addInsp">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="inspModalTitle">🛡️ Регистриране на инспекция</h3>
+        <button class="modal-close" onclick="closeModal('addInsp')">✕</button>
+      </div>
+      <form id="inspForm">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="field"><label>Инспектор *</label><input name="inspektor" required placeholder="Име на инспектора" /></div>
+            <div class="field"><label>Дата</label><input name="data" type="date" /></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label>Тип обект *</label>
+              <select name="obekt_tip"><option>Кораб</option><option>Хладилен камион</option><option>Магазин</option><option>Любителски риболов</option></select>
+            </div>
+            <div class="field"><label>Обект *</label><input name="obekt" required placeholder="напр. Свети Никола / Риба Маркет" /></div>
+          </div>
+          <div class="field"><label>Място</label><input name="mqsto" placeholder="Пристанище Бургас" /></div>
+          <div class="field"><label>Резултат *</label>
+            <select name="rezultat" id="rezultatSelect">
+              <option value="редовно">✅ Редовно – без нарушения</option>
+              <option value="предупреждение">⚠️ Предупреждение</option>
+              <option value="нарушение">🚫 Нарушение – акт и глоба</option>
+            </select>
+          </div>
+          <div id="violFields" class="hidden">
+            <div class="form-row">
+              <div class="field"><label>№ на акт</label><input name="akt" placeholder="АКТ-2026-0000" /></div>
+              <div class="field"><label>Глоба (лв.)</label><input name="globa" type="number" step="50" placeholder="1500" /></div>
+            </div>
+          </div>
+          <div class="field"><label>Бележка</label><textarea name="belejka" placeholder="Описание на проверката и констатациите…"></textarea></div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-ghost" onclick="closeModal('addInsp')">Отказ</button>
+          <button type="submit" class="btn btn-primary">Запиши инспекцията</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="footer-root"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/inspekcii.js"></script>
+</body>
+</html>
