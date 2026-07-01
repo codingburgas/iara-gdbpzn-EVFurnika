@@ -90,7 +90,7 @@ Python API на адрес `/api/...`.
 ## 📁 Структура на проекта
 
 ```
-Liz/
+iara-gdbpzn-EVFurnika/
 ├── app.py              # Python сървър (Flask) + REST API
 ├── database.py         # База данни SQLite + начални данни
 ├── requirements.txt    # Python зависимости (Flask)
