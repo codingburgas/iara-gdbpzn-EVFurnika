@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Билети за любителски риболов · ИАРА</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐟</text></svg>" />
+</head>
+<body>
+  <div id="nav-root"></div>
+
+  <section class="page-hero photo ph-bileti">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Начало</a> / <span>Любителски билети</span></div>
+      <h1>Билети за любителски риболов 🎟️</h1>
+      <p>Купете билет онлайн за минути. Цената зависи от срока и категорията. За хора с увреждания билетът е безплатен — подава се номер на решение от ТЕЛК.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:48px">
+    <div class="container">
+      <div id="loginBanner" class="hidden" style="margin-bottom:26px"></div>
+      <div class="calc">
+        <!-- Configurator -->
+        <div class="reveal">
+          <h3>1. Изберете категория</h3>
+          <p class="muted" style="font-size:.92rem">Цената зависи от възрастта и статута на лицето.</p>
+          <div class="option-grid mt-2" id="kategoriiGrid"></div>
+
+          <div id="invalidBox" class="hidden" style="margin-top:14px">
+            <div class="field" style="background:var(--surface-2);padding:16px;border-radius:14px;border:1px solid var(--line)">
+              <label>№ на решение от ТЕЛК *</label>
+              <input id="telk" placeholder="напр. 1234 / 2026" />
+              <div class="hint">Билетът е безплатен за лица с увреждания срещу подаване на номер на решение от ТЕЛК.</div>
+            </div>
+          </div>
+
+          <h3 style="margin-top:32px">2. Изберете срок на валидност</h3>
+          <div class="option-grid mt-2" id="srokoveGrid"></div>
+
+          <h3 style="margin-top:32px">3. Данни на любителя</h3>
+          <div class="form-row mt-2">
+            <div class="field"><label>Име и фамилия *</label><input id="ime" placeholder="Иван Иванов" /></div>
+            <div class="field"><label>ЕГН / дата на раждане</label><input id="egn" placeholder="напр. 01.01.2005" /></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label>Имейл</label><input id="email" type="email" placeholder="ime@example.bg" /></div>
+            <div class="field"><label>Начална дата</label><input id="ot" type="date" /></div>
+          </div>
+        </div>
+
+        <!-- Ticket preview -->
+        <div class="reveal d1">
+          <div class="ticket-preview" id="ticket">
+            <div class="tp-top">
+              <div>
+                <div style="font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;opacity:.8">ИАРА · Любителски билет</div>
+                <b style="font-size:1.2rem" id="tpCat">Над 14 г.</b>
+              </div>
+              <span style="font-size:2rem">🎣</span>
+            </div>
+
+            <div class="ticket-total" id="tpPrice">0 лв.</div>
+            <div style="opacity:.85;font-size:.9rem" id="tpSrok">Изберете срок</div>
+
+            <div class="ticket-perf"></div>
+
+            <div class="ticket-row"><span>Категория</span><b id="tpCat2">Над 14 г.</b></div>
+            <div class="ticket-row"><span>Валидност</span><b id="tpValid">—</b></div>
+            <div class="ticket-row"><span>Притежател</span><b id="tpName">—</b></div>
+            <div class="ticket-row" id="tpTelkRow" style="display:none"><span>ТЕЛК №</span><b id="tpTelk">—</b></div>
+
+            <div class="qr" id="qr"></div>
+
+            <button class="btn btn-block" id="buyBtn" style="background:#fff;color:var(--navy);margin-top:20px">Купи билет</button>
+            <p style="text-align:center;font-size:.78rem;opacity:.75;margin-top:10px">Чрез мобилното приложение след това регистрирате улова си.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Price list -->
+      <div class="reveal" style="margin-top:64px">
+        <div class="section-head" style="margin-bottom:32px">
+          <span class="eyebrow">Ценоразпис</span>
+          <h2>Цени на билетите (в лева)</h2>
+        </div>
+        <div class="card" style="overflow-x:auto;padding:8px">
+          <table style="width:100%;border-collapse:collapse;min-width:560px" id="priceTable"></table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-root"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/bileti.js"></script>
+</body>
+</html>
