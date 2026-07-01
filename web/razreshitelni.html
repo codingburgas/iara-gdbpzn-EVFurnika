@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Разрешителни за риболов · ИАРА</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐟</text></svg>" />
+</head>
+<body>
+  <div id="nav-root"></div>
+
+  <section class="page-hero photo ph-razreshitelni">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Начало</a> / <span>Разрешителни</span></div>
+      <div class="flex between items-center wrap" style="gap:20px">
+        <div>
+          <h1>Разрешителни за риболов</h1>
+          <p>Корабите могат да ловят риба само с валидно разрешително. То се издава всяка година, описва уредите и зоната, и може да бъде отнето при нарушение.</p>
+        </div>
+        <div class="flex gap-2 wrap">
+          <button class="btn btn-light" id="editToggle">✎ Редактиране</button>
+          <button class="btn btn-light" id="addBtn">+ Издай разрешително</button>
+        </div>
+      </div>
+      <div class="page-stats">
+        <div class="ps"><b id="st-total">—</b><span>Общо</span></div>
+        <div class="ps"><b id="st-valid">—</b><span>Валидни</span></div>
+        <div class="ps"><b id="st-expired">—</b><span>Изтекли</span></div>
+        <div class="ps"><b id="st-revoked">—</b><span>Отнети</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:40px">
+    <div class="container">
+      <div class="toolbar">
+        <div class="search">
+          <span id="searchIco"></span>
+          <input type="text" id="search" placeholder="Търси по номер, кораб или собственик…" />
+        </div>
+        <div class="chips" id="chips">
+          <button class="chip active" data-f="all">Всички</button>
+          <button class="chip" data-f="валидно">Валидни</button>
+          <button class="chip" data-f="изтекло">Изтекли</button>
+          <button class="chip" data-f="отнето">Отнети</button>
+        </div>
+      </div>
+
+      <div class="flex between items-center" style="margin-bottom:16px">
+        <span class="count" id="count">Зареждане…</span>
+      </div>
+
+      <div class="records cols-2" id="list"><div class="spinner"></div></div>
+    </div>
+  </section>
+
+  <!-- Modal: issue a permit -->
+  <div class="modal-overlay" id="addRazr">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="razrModalTitle">📄 Ново разрешително за риболов</h3>
+        <button class="modal-close" onclick="closeModal('addRazr')">✕</button>
+      </div>
+      <form id="razrForm">
+        <div class="modal-body">
+          <div class="field"><label>Кораб *</label><select name="korab" id="korabSelect" required></select></div>
+          <div class="form-row">
+            <div class="field"><label>Собственик / ползвател *</label><input name="sobstvenik" required /></div>
+            <div class="field"><label>Капитан</label><input name="kapitan" /></div>
+          </div>
+          <div class="field"><label>Разрешени уреди *</label><input name="uredi" required placeholder="напр. Дънна тралова мрежа, грибове" /></div>
+          <div class="field"><label>Зона на риболов</label>
+            <select name="zona">
+              <option>Зона A – Северно Черноморие</option>
+              <option>Зона B – Южно Черноморие</option>
+              <option>Вътрешни водоеми</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="field"><label>Издадено на</label><input name="izdadeno" type="date" /></div>
+            <div class="field"><label>Валидно до</label><input name="validno_do" type="date" /></div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-ghost" onclick="closeModal('addRazr')">Отказ</button>
+          <button type="submit" class="btn btn-primary">Издай разрешително</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="footer-root"></div>
+
+  <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/razreshitelni.js"></script>
+</body>
+</html>
